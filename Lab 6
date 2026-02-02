@@ -1,0 +1,6 @@
+import pandas as pd
+def drop_missing_columns(df):
+    missing_percent = df.isna().mean()
+    cols_to_drop = missing_percent[missing_percent > 0.7].index
+    df = df.drop(columns=cols_to_drop)
+    return df
