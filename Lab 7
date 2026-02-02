@@ -1,0 +1,8 @@
+def fit_imputer(train, num_cols, cat_cols):
+    num_median = {}
+    cat_mode = {}
+    for c in num_cols:
+        num_median[c] = train[c].median()
+    for c in cat_cols:
+        cat_mode[c] = train[c].mode(dropna=True)[0]
+    return {"num_median": num_median, "cat_mode": cat_mode}
