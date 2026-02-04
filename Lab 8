@@ -1,0 +1,17 @@
+import pandas as pd
+data = {
+    "user": [1,1,1,2,2],
+    "day": ["Mon","Mon","Mon","Tue","Tue"],
+    "product": ["A","A","A","B","B"],
+    "event": ["click","click","buy","click","click"]
+}
+df = pd.DataFrame(data)
+df = df.drop_duplicates()
+df = df.sort_values(["user","day","product"])
+df = df.drop_duplicates(subset=["user","day","product"], keep="last")
+agg = df.groupby("user").agg(
+    event_count=("event","count"),
+    ever_clicked=("event", lambda x: 1 if "click" in list(x) else 0)
+).reset_index()
+print(df)
+print(agg)
