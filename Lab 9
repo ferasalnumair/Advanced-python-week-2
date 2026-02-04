@@ -1,0 +1,14 @@
+import pandas as pd
+def normalize_schema(df):
+    num_cols = ["age", "income"]
+    for c in num_cols:
+        df[c] = pd.to_numeric(df[c], errors="coerce")
+    df["price"] = (
+        df["price"]
+        .str.replace("$", "")
+        .str.replace(",", "")
+        .astype(float)
+    )
+    df["date"] = pd.to_datetime(df["date"], errors="coerce")
+    print(df.isna().sum())
+    return df
